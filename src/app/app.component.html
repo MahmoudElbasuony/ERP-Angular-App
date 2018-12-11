@@ -1,0 +1,13 @@
+<toaster-container>
+</toaster-container>
+
+<app-header [hidden]="!IsAuthenticated"></app-header>
+
+<app-nav  [hidden]="!IsAuthenticated"></app-nav>
+
+<router-outlet></router-outlet>
+
+
+<app-loader Image="assets/images/loader.gif" *ngIf="LoaderService.IsLoading"></app-loader>
+
+

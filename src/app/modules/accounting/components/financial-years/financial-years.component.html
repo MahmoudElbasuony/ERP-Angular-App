@@ -1,0 +1,114 @@
+<section id="content" [ngClass]="{'contentAr':!langService.IsEnglish}">
+  <div class="page page-dashboard">
+      <div class="pageheader">
+          <div class="page-bar">
+              <ul class="page-breadcrumb">
+                  <li>
+                      <a href="#"><i class="fa fa-home"></i> ERPSystem</a>
+                  </li>
+                  <li>
+                      <a href="#">{{'accounting_section'|translate}}</a>
+                  </li>
+                  <li>
+                    <a href="#">{{'accounting_finanical_years'|translate}}</a>
+                </li>
+              </ul>
+          </div>
+      </div>
+      <div class="panel panel-default">
+         
+            <div class="panel-body">
+      
+      <div class="row">
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                            Year Name
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" pInputText class="form-control" ref-YearName="ngModel" name="YearName" [(ngModel)]="newObject.YearName" required/>
+                        <span class="text-danger" *ngIf="YearName?.errors?.required && YearName?.touched">Year Name Required</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                        <div class="col-md-2">
+                                Periods Count
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" pInputText class="form-control" ref-PeriodsCount="ngModel" name="PeriodsCount" [(ngModel)]="newObject.PeriodsCount" required/>
+                            <span class="text-danger" *ngIf="PeriodsCount?.errors?.required && PeriodsCount?.touched">Periods Count Required</span>
+                        </div>
+                    </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        Year Start
+                    </div>
+                    <div class="col-md-4">
+                        <p-calendar [(ngModel)]="newObject.YearStart" name="YearStart" [showIcon]="true"></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
+                        <span class="text-danger" *ngIf="YearStart?.errors?.required && YearStart?.touched">Year Start Required</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-md-2">
+                            Year End
+                        </div>
+                        <div class="col-md-4">
+                            <p-calendar [(ngModel)]="newObject.YearEnd" name="YearEnd" [showIcon]="true"></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
+                            <span class="text-danger" *ngIf="YearEnd?.errors?.required && YearEnd?.touched">Year End Required</span>
+                        </div>
+                    </div>
+            </div>
+
+                  <!-- Table -->                
+                        <div class="row">
+                                <p-dataTable #dt [value]="list" exportFilename="FinancialYears" selectionMode="single" [(selection)]="selectedCurrency" (onRowSelect)="onRowSelect($event)"
+                                    [reorderableColumns]="true" columnResizeMode="fit" [resizableColumns]="true" [metaKeySelection]="false" emptyMessage="No Financial Years are found">
+                                    <p-header>
+                                        <div class="ui-helper-clearfix">
+                                            <button type="button" pButton icon="fa-table" iconPos="left" label="Export" (click)="dt.exportCSV()" style="float: left"></button>
+                                        </div>
+                                    </p-header>
+                                    <p-column header="" [style]="{'width': '40px' ,'text-align':'center'}">
+                                        <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+                                            {{i+1}}
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column field="Code" header="Code" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                                    <p-column field="YearName" header="YearName" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                                    <p-column field="YearStart" header="YearStart" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                                    <p-column field="YearEnd" header="YearEnd" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                                    <p-column field="PeriodsCount" header="PeriodsCount" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                                   
+                                    <p-column header="Edit" [style]="{'text-align':'center'}">
+                                            <ng-template let-FinancialYear="rowData" pTemplate="body">
+                                              <div class="btn-group ">
+                                                <button type="button"  (click)="OnEditFinancialYear(FinancialYear)" class="btn btn-primary">
+                                                  <i class="fa fa-edit"></i> Edit</button>
+                                                <button type="button"  (click)="onDeleteFinancialYear(FinancialYear)" class="btn btn-danger">
+                                                  <i class="fa fa-remove"></i> Delete</button>
+                                              </div>
+                            
+                                            </ng-template>
+                                          </p-column>
+                            
+                        
+                                </p-dataTable>
+
+                              </div>
+                               
+                                     <button type="button" *ngIf="!editMode" pButton icon="fa-add" iconPos="left" label="Save" (click)="Save()" style="float: left;"class="ui-helper-clearfix"></button>
+                                     <button pButton type="button" *ngIf="editMode"  icon="fa-add" iconPos="left" label="Edit" (click)="Save()" style="float:left;" class="ui-button-success"></button>
+                             
+
+                              
+                            </div>
+                        </div>
+
+  </div>
+
+</section>
+

@@ -1,0 +1,177 @@
+<div class="panel panel-default">
+        <div class="panel-heading">{{'contacts_data'|translate}}</div>
+        <div class="panel-body">
+            <div class="row">
+        <div class="form-group">
+            <div class="col-md-2">
+                {{'address'|translate}}
+            </div>
+            <div class="col-md-8">
+
+                    <textarea rows="5" cols="30" class="form-control" pInputTextarea autoResize="autoResize" [(ngModel)]="newObject.Address"></textarea>
+            </div>
+        </div>
+      </div>
+
+      <div class="row">
+         <div class="form-group">
+          <div class="col-md-2">
+             
+          </div>
+          <div class="col-md-4">
+          <input class="form-control" [(ngModel)]="PhoneNumber"/>
+          </div>
+          <div class="col-md-3">
+          <button type="button" pButton icon="fa-add" iconPos="left" label="{{'add_phone_number'|translate}}" (click)="AddPhoneNumber()" style="float: left"></button>
+             </div>
+            </div>
+          </div>
+
+        <div class="row">
+       <div class="form-group">
+            <div class="col-md-2">
+                <!-- {{'phone_numbers'|translate}} -->
+            </div>
+            <div class="col-md-8">
+                    <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>{{'phone_numbers'|translate}}</th>
+                                <th></th>
+                              </tr>
+                            
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of PhoneNumberArray">
+                                <td>{{item}}</td>
+                                <td> <button type="button" pButton icon="fa-add" class="ui-button-danger"  label="{{'cancel'|translate}}" (click)="CancelPhone(item)" [style]="{'padding-left': '18px'}"></button></td>
+                              </tr>
+                            </tbody>
+                          </table>    
+          </div>
+        </div>
+         </div>
+        <div class="row">
+            <div class="form-group">
+             <div class="col-md-2">
+                
+             </div>
+             <div class="col-md-4">
+                <input class="form-control" [(ngModel)]="MobileNumber"/>
+             </div>
+             <div class="col-md-3">
+                <button type="button" pButton icon="fa-add" iconPos="left" label="{{'add_mobile_number'|translate}}" (click)="AddMobileNumber()" style="float: left"></button>
+              </div>
+               </div>
+             </div>
+             <div class="row">
+        <div class="form-group">
+                <div class="col-md-2">
+                    <!-- {{'mobiles'|translate}} -->
+                </div>
+                <div class="col-md-8">
+                        <table class="table table-bordered">
+                                <thead>
+                                  <tr>
+                                    <th>{{'mobile_numbers'|translate}}</th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let item of  MobilesNumberArray">
+                                    <td>{{item}}</td>
+                                    <td> <button type="button" pButton icon="fa-add" class="ui-button-danger"  label="{{'cancel'|translate}}" (click)="CancelMobile(item)" [style]="{'padding-left': '13px'}"></button></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                   
+                   </div>
+            </div>
+         </div>
+
+            <div class="row">
+                <div class="form-group">
+                 <div class="col-md-2">
+                    
+                 </div>
+                 <div class="col-md-4">
+                    <input class="form-control" [(ngModel)]="FaxNumber"/>
+                 </div>
+                 <div class="col-md-3">
+                    <button type="button" pButton icon="fa-add" iconPos="left" label="{{'add_fax_number'|translate}}" (click)="AddFaxNumber()" style="float: left"></button>
+                  </div>
+                   </div>
+                 </div>
+                 <div class="row">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <!-- {{'fax'|translate}} -->
+                    </div>
+                    <div class="col-md-8">
+                            <table class="table table-bordered">
+                                    <thead>
+                                      <tr>
+                                        <th>{{'fax_numbers'|translate}}</th>
+                                        <th></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let item of FaxesNumberArray">
+                                        <td>{{item}}</td>
+                                        <td> <button type="button" pButton icon="fa-add" class="ui-button-danger"  label="Cancel" (click)="CancelFax(item)" [style]="{'padding-left': '13px'}"></button></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                       
+                        </div>
+                  </div>
+                  </div>
+                   
+                      <div class="row">
+                            <div class="form-group">
+                                    <div class="col-md-2">
+                                        {{'email'|translate}}
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" [(ngModel)]="newObject.Email"/>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="form-group">
+                                        <div class="col-md-2">
+                                            {{'website'|translate}}
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input class="form-control" [(ngModel)]="newObject.Website"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="form-group">
+                                            <div class="col-md-2">
+                                                {{'hotline'|translate}}
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input class="form-control" [(ngModel)]="newObject.HotLine"/>
+                                            </div>
+                                          </div>
+                                        </div>
+                      
+                        
+
+            <div  class="row">
+                <div class="col-md-2">
+                  <button type="button"  [authGuard] actionType="add"  *ngIf="!editMode" pButton icon="fa-add" iconPos="left" label="Save" (click)="save()"
+                  class="ui-helper-clearfix"></button>
+                <button pButton type="button"  [authGuard] actionType="edit" *ngIf="editMode" icon="fa-add" iconPos="left" label="Edit" (click)="update()" [style]="{'padding': '7px'}"
+                  class="ui-button-success"></button>
+                </div>
+
+                
+              </div>
+          </div>
+      </div>
+
+
+

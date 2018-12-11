@@ -1,0 +1,112 @@
+<section id="content" [ngClass]="{'contentAr':!langService.IsEnglish}">
+  <div class="page page-dashboard">
+    <div class="pageheader">
+      <div class="page-bar">
+        <ul class="page-breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-home"></i> ERPSystem</a>
+          </li>
+          <li>
+            <a href="#">{{'general_data_section'|translate}}</a>
+          </li>
+          <li>
+            <a href="#">{{'general_data_cities'|translate}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- cards row -->
+    <!-- cards row -->
+    <div class="row">
+      <p-dataTable #dt [value]="list" [immutable]="false" exportFilename="countries" selectionMode="single" [(selection)]="selectedCountry"
+        [reorderableColumns]="true" columnResizeMode="fit" [resizableColumns]="true" [metaKeySelection]="false" emptyMessage="{{'no_cities_found'|translate}}">
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <button type="button" pButton icon="fa-table" iconPos="left" label="{{'export'|translate}}" (click)="dt.exportCSV()" style="float: left"></button>
+          </div>
+        </p-header>
+        <p-column header="" [style]="{'width': '40px' ,'text-align':'center'}">
+          <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+            {{i+1}}
+          </ng-template>
+        </p-column>
+        <p-column field="NameAr" header="{{'name_ar'|translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+        <p-column field="NameEn" header="{{'name_en'|translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+        <p-column>
+
+          <ng-template let-i="rowIndex" let-data="rowData" pTemplate type="body">
+            <button type="button" [authGuard] actionType="edit" pButton icon="fa-edit" iconPos="left" (click)="showDialogToEdit(data)"
+              style="float: left"></button>
+            <button type="button" pButton [authGuard] actionType="delete" icon="fa-remove" iconPos="left" class="ui-button-danger" (click)="showDialogToDelete(data.Id , i)"
+              style="float: left"></button>
+          </ng-template>
+        </p-column>
+        <p-footer>
+          <div class="ui-helper-clearfix" style="width:100%">
+            <button type="button" pButton icon="fa-add" [authGuard] actionType="add" iconPos="left" label="{{'cities_add_new_city'|translate}}"
+              (click)="showDialogToAdd()" style="float: left"></button>
+
+          </div>
+        </p-footer>
+
+      </p-dataTable>
+      <p-dialog [modal]="true" [(visible)]="showDialog" (onHide)="cityForm?.reset()">
+        <p-header>
+          {{'cities_add_new_city'|translate}}
+        </p-header>
+        <div>
+          <form ref-cityForm="ngForm">
+            <div class="col-md-4">
+              {{'name_ar'|translate}}
+            </div>
+            <div class="col-md-8">
+              <input class="form-control" ref-NameAr="ngModel" name="namear" [(ngModel)]="newObject.NameAr" required />
+              <span class="text-danger" *ngIf="NameAr.touched && NameAr?.errors?.required">{{"name_ar_required"|translate}}</span>
+              <hr/>
+            </div>
+            <div class="col-md-4">
+              {{'name_en'|translate}}
+            </div>
+            <div class="col-md-8">
+              <input class="form-control" ref-NameEn="ngModel" name="nameen" [(ngModel)]="newObject.NameEn" required />
+              <span class="text-danger" *ngIf="NameEn?.touched && NameEn?.errors?.required">{{"name_en_required"|translate}}</span>
+              <hr/>
+            </div>
+
+            <div class="col-md-4">
+              {{'country'|translate}}
+            </div>
+            <div class="col-md-8">
+
+              <select class="form-control" ref-country="ngModel" name="countries" [(ngModel)]="newObject.CountryId" required>
+                <option value="" selected>{{'choose'|translate}}</option>
+                <option *ngFor="let country of Countries" [value]="country.Id">{{langService.IsEnglish ? country.NameEn : country.NameAr}}</option>
+              </select>
+              <span class="text-danger" *ngIf="country.touched && country?.errors?.required">{{"country_required"|translate}}</span>
+              <hr/>
+            </div>
+
+          </form>
+        </div>
+
+        <p-footer>
+          <div class="ui-helper-clearfix" style="width:100%">
+            <button type="button" [disabled]="cityForm?.invalid" *ngIf="isNew" [authGuard] actionType="add" pButton icon="fa-add" iconPos="left" label="{{'save'|translate}}"
+              (click)="save()" style="float: left"></button>
+            <button type="button"   *ngIf="!isNew" [authGuard] actionType="edit" pButton icon="fa-add" iconPos="left" label="{{'edit'|translate}}"
+              (click)="save()" style="float: left"></button>
+            <button type="button" pButton icon="fa-add"  iconPos="left" label="{{'cancel'|translate}}" (click)="cancelDialog()" style="float: left"></button>
+          </div>
+
+        </p-footer>
+      </p-dialog>
+
+      <p-confirmDialog header="{{'delete_confirmation'|translate}}" message="{{'confirmation_message'|translate}}" rejectLabel="{{'no'|translate}}"
+        acceptLabel="{{'yes'|translate}}" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+    </div>
+
+  </div>
+
+</section>

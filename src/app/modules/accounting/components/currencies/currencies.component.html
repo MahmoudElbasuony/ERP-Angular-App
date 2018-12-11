@@ -1,0 +1,115 @@
+<section id="content" [ngClass]="{'contentAr':!langService.IsEnglish}">
+  <div class="page page-dashboard">
+    <div class="pageheader">
+      <div class="page-bar">
+        <ul class="page-breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-home"></i> ERPSystem</a>
+          </li>
+          <li>
+            <a href="#">{{'accounting_section'|translate}}</a>
+          </li>
+          <li>
+            <a href="#">{{'accounting_currencies'|translate}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Form -->
+
+    <div class="panel panel-default">
+
+      <div class="panel-body">
+
+        <div class="row">
+
+          <div class="form-group">
+            <div class="col-md-2">
+              Currency Name
+            </div>
+            <div class="col-md-4">
+              <input type="text" pInputText class="form-control" ref-CurrencyName="ngModel" name="CurrencyName" [(ngModel)]="newObject.CurrencyName"
+                required/>
+              <span class="text-danger" *ngIf="CurrencyName?.errors?.required && CurrencyName?.touched">Currency Name Required</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-2">
+              Exchange Rate
+            </div>
+            <div class="col-md-4">
+              <input type="text" pInputText class="form-control" ref-ExchangeRate="ngModel" name="ExchangeRate" [(ngModel)]="newObject.ExchangeRate"
+                required/>
+              <span class="text-danger" *ngIf="ExchangeRate?.errors?.required && ExchangeRate?.touched">Exchange Rate Required</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <div class="col-md-2">
+              Default Currency
+            </div>
+            <div class="col-md-4">
+              <input type="checkbox" pCheckBox ref-DefaultCurrency="ngModel" name="DefaultCurrency" [(ngModel)]="newObject.DefaultCurrency"
+              />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Table -->
+        <div class="row">
+          <p-dataTable #dt [value]="list" exportFilename="currencies" selectionMode="single" [(selection)]="selectedCurrency" 
+            [reorderableColumns]="true" columnResizeMode="fit" [resizableColumns]="true" [metaKeySelection]="false" emptyMessage="No Currencies are found"[contextMenu]="cm" (onRowDblclick)="OnEditCurrencyTable($event)">
+            <p-header>
+              <div class="ui-helper-clearfix">
+                <button type="button" pButton icon="fa-table" iconPos="left" label="Export" (click)="dt.exportCSV()" style="float: left"></button>
+              </div>
+            </p-header>
+            <p-column header="" [style]="{'width': '40px' ,'text-align':'center'}">
+              <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+                {{i+1}}
+              </ng-template>
+            </p-column>
+            <p-column field="Code" header="Code" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+            <p-column field="CurrencyName" header="CurrencyName" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+            <p-column field="ExchangeRate" header="ExchangeRate" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+            <p-column field="LocalCurrency" header="LocalCurrency" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+
+            <p-column header="Edit" [style]="{'text-align':'center'}">
+              <ng-template let-currency="rowData" pTemplate="body">
+                <div class="btn-group ">
+                  <button type="button" (click)="OnEditCurrency(currency)" class="btn btn-primary">
+                    <i class="fa fa-edit"></i> Edit</button>
+                  <button type="button" (click)="onDeleteCurrency(currency)" class="btn btn-danger">
+                    <i class="fa fa-remove"></i> Delete</button>
+                </div>
+
+              </ng-template>
+            </p-column>
+
+
+          </p-dataTable>
+
+          <p-contextMenu #cm [model]="items"></p-contextMenu>
+          
+        </div>
+
+        <p-confirmDialog header="{{'delete_confirmation'|translate}}" message="{{'confirmation_message'|translate}}" rejectLabel="{{'no'|translate}}" acceptLabel="{{'yes'|translate}}" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+        <button type="button" *ngIf="!editMode" pButton icon="fa-add" iconPos="left" label="Save" (click)="Save()" style="float: left;"
+          class="ui-helper-clearfix"></button>
+        <button pButton type="button" *ngIf="editMode" icon="fa-add" iconPos="left" label="Edit" (click)="Update()" style="float:left;"
+          class="ui-button-success"></button>
+
+
+
+      </div>
+    </div>
+
+  </div>
+
+</section>

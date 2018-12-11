@@ -1,0 +1,103 @@
+<section id="content" [ngClass]="{'contentAr':!langService.IsEnglish}">
+  <div class="page page-dashboard">
+    <div class="pageheader">
+      <div class="page-bar">
+        <ul class="page-breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-home"></i> ERPSystem</a>
+          </li>
+          <li>
+            <a href="#">{{'manage_group_permissions'|translate}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="card-container col-lg-12 col-sm-12 ">
+        <section class="tile">
+
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font">
+              <strong>{{'manage_group_permissions'|translate}} </strong>
+            </h1>
+
+          </div>
+          <!-- /tile header -->
+          <!-- tile body -->
+          <div class="tile-body p-0">
+
+
+
+
+
+
+
+
+            <div class="well">
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <p-dropdown [options]="groups" (onChange)="OnChangeGroup()" [(ngModel)]="selectedGroup" [filter]="true" optionLabel="Name" placeholder="{{'choose_group'|translate}}"></p-dropdown>
+                </div>
+                <div class="col-sm-6">
+                  <button pButton [authGuard] actionType="edit" [disabled]="!tree || tree.length==0 " class="pull-right" type="button" label="{{'save'|translate}}"
+                    (click)="SaveChanges()"></button>
+                </div>
+              </div>
+
+              <p-treeTable [value]="tree" selectionMode="single">
+                <p-header> {{'pages'|translate}} </p-header>
+                <p-column field="CanView" header="" [style]="{'width':'5em'}">
+                  <ng-template let-node="rowData" pTemplate="body">
+                    <input type="checkbox" pCheckBox (click)="CanDo(node,$event,'all')" [checked]="node.data.CanView&&node.data.CanEdit&&node.data.CanDelete&&node.data.CanAdd&&node.data.CanPrint"
+                    />
+                  </ng-template>
+                </p-column>
+                <p-column field="NameAr" header="{{'name_ar'|translate}}"></p-column>
+                <p-column field="NameEn" header="{{'name_en'|translate}}"></p-column>
+                <p-column field="CanView" header="{{'can_view'|translate}}">
+                  <ng-template let-node="rowData" pTemplate="body">
+
+                    <input type="checkbox" (click)="CanDo(node,$event,'view');" [(ngModel)]="node.data.CanView" />
+                  </ng-template>
+                </p-column>
+                <p-column field="CanAdd" header="{{'can_add'|translate}}">
+                  <ng-template let-node="rowData" pTemplate="body">
+                    <input type="checkbox" (click)="CanDo(node,$event,'add');" [disabled]="!node.data.CanView" [(ngModel)]="node.data.CanAdd"
+                    />
+                  </ng-template>
+                </p-column>
+                <p-column field="CanEdit" header="{{'can_edit'|translate}}">
+                  <ng-template let-node="rowData" pTemplate="body">
+                    <input type="checkbox" (click)="CanDo(node,$event,'edit');" [disabled]="!node.data.CanView" [(ngModel)]="node.data.CanEdit"
+                    />
+                  </ng-template>
+                </p-column>
+                <p-column field="CanDelete" header="{{'can_delete'|translate}}">
+                  <ng-template let-node="rowData" pTemplate="body">
+                    <input type="checkbox" (click)="CanDo(node,$event,'delete');" [disabled]="!node.data.CanView" [(ngModel)]="node.data.CanDelete"
+                    />
+                  </ng-template>
+                </p-column>
+                <p-column field="CanPrint" header="{{'can_print'|translate}}">
+                  <ng-template let-node="rowData" pTemplate="body">
+                    <input type="checkbox" (click)="CanDo(node,$event,'print');" [disabled]="!node.data.CanView" [(ngModel)]="node.data.CanPrint"
+                    />
+                  </ng-template>
+                </p-column>
+              </p-treeTable>
+            </div>
+
+
+          </div>
+          <!-- /tile body -->
+
+
+
+        </section>
+      </div>
+    </div>
+  </div>
+</section>

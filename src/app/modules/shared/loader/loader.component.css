@@ -1,0 +1,14 @@
+:host div {
+    position: fixed;
+    z-index: 100;
+    width: 100% !important;
+    height: 100% !important;
+    background: #262626;
+    text-align: center;
+}
+
+:host div img {
+    margin-top: 32vh;
+    width: 15vw;
+    height: 35vh;
+}

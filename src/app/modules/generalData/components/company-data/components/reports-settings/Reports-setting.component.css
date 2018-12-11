@@ -1,0 +1,18 @@
+.form-group {
+    margin-bottom: 0px;
+}
+
+.remove-report{
+  float: right;
+    position: relative;
+    right: 1em;
+    top: 1.5em;
+    z-index: 1;
+}
+.report-img
+{
+  width: 100%;
+   height: 50vh;
+  position: relative;
+  top: -2em;
+}

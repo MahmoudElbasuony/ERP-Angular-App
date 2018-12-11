@@ -1,0 +1,76 @@
+﻿<div id="wrap">
+  <div class="page page-core page-login">
+
+    <div class="text-center">
+      <h3 class="text-light text-white">
+        <span class="text-lightred">ERP</span>System</h3>
+    </div>
+    <fieldset [disabled]="InProgress">
+
+
+      <div class="container w-420 p-15 bg-white mt-40 text-center">
+
+
+        <h2 class="text-light text-greensea">{{"login_title" | translate}}</h2>
+
+        <form name="form" class="form-validation mt-20" novalidate="">
+
+          <div class="form-group">
+            <input type="email" class="form-control underline-input" placeholder="{{'login_email_placeholder' | translate}}" [(ngModel)]="User.Email"
+              name="email">
+          </div>
+
+          <div class="form-group">
+            <input type="password" placeholder="{{'login_password_plcaeholder' | translate}}" class="form-control underline-input" [(ngModel)]="User.Password"
+              name="password">
+          </div>
+
+          <div class="form-group text-left mt-20">
+            <ng-container *ngIf="langService.IsEnglish">
+              <button type="button" class="btn btn-greensea b-0 br-2 mr-5" (click)="login()">{{'login_btn' | translate}}</button>
+              <label class="checkbox checkbox-custom-alt checkbox-custom-sm inline-block">
+                <input type="checkbox" name="RememberMe" [(ngModel)]="Rememberme">
+                <i></i>{{'login_remember' | translate }}
+              </label>
+            </ng-container>
+            <ng-container *ngIf="!langService.IsEnglish">
+              <label class="checkbox checkbox-custom-alt checkbox-custom-sm inline-block">
+                {{'login_remember' | translate }}
+                <input type="checkbox" name="RememberMe" [(ngModel)]="Rememberme">
+                <i></i>
+              </label>
+              <button type="button" class="btn btn-greensea b-0 br-2 mr-5" (click)="login()">{{'login_btn' | translate}}</button>
+            </ng-container>
+
+            <button type="button" class="pull-right mt-10 btn btn-link" (click)="forgotPasswordLinkClick()">{{'login_forgot_password_label' | translate}}</button>
+          </div>
+
+        </form>
+
+        <hr class="b-3x">
+
+
+        <div class="row" *ngIf="IsForgotPassword">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <input class="form-control" type="email" #email placeholder="{{'forgot_password_email_placeholder'|translate}}" />
+              <span style="display: none;" #emailerror class="text-danger">{{'forgot_password_email_error'|translate}}</span>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="onForgotPassword()">{{"forgot_password_reset_btn"|translate}}
+              <i *ngIf="InProgress" class="fa fa-spin fa-spinner"></i>
+            </button>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+
+    </fieldset>
+  </div>
+
+
+
+</div>

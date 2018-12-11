@@ -1,0 +1,45 @@
+<section id="content" [ngClass]="{'contentAr':!langService.IsEnglish}">
+  <div class="page page-dashboard">
+    <div class="pageheader">
+      <div class="page-bar">
+        <ul class="page-breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-home"></i> ERPSystem</a>
+          </li>
+          <li>
+            <a href="#">{{'general_data_section'|translate}}</a>
+          </li>
+          <li>
+            <a href="#">{{'general_data_accounts_link'|translate}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- cards row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <ng-container *ngIf="AccountLinks.length > 0">
+
+          <ul class="nav nav-tabs">
+            <ng-container *ngFor="let al of AccountLinks; let indx=index">
+              <li [ngClass]="{'active':indx==0}" *ngIf="al.AccountLinkDetails.length > 0">
+                <a data-toggle="tab" href="{{'#'+al.Id}}">{{langService.IsEnglish ? al.NameEn : al.NameAr}}</a>
+              </li>
+            </ng-container>
+          </ul>
+
+          <div class="tab-content">
+            <div *ngFor="let al of AccountLinks; let indx=index" [id]="al.Id" [ngClass]="{'active':indx==0}" class="tab-pane fade in ">
+              <ng-container *ngIf="al.AccountLinkDetails.length > 0">
+                  <account-link-details [Accounts]="Accounts" [AccountLink]="al"></account-link-details>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+    </div>
+  </div>
+
+</section>

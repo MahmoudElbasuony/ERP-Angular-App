@@ -1,0 +1,8 @@
+﻿*************************************************************
+- error    : Cannot find module './$data'
+- solution : Remove node_modules folder and run npm install 
+*************************************************************
+
+
+
+

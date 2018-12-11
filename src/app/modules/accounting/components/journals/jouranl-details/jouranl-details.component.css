@@ -1,0 +1,12 @@
+#entry_editor .modal-dialog {
+    width: 84%;
+}
+
+
+td input{
+ width : 100%;
+}
+
+.ApplyDescriptionToAllDetails{
+  margin-top: 1.5em;
+}

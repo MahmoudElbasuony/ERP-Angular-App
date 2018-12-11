@@ -1,0 +1,52 @@
+<p-dialog header="{{'group_details'|translate}}" [visible]="true" [responsive]="true" (onHide)="Close()" showEffect="fade" [modal]="true"
+  [width]="500">
+  <div class="ui-grid ui-grid-responsive ui-fluid">
+
+    <form ref-groupForm="ngForm">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>{{'name'|translate}} :</label>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <input type="text" pInputText class="form-control" ref-Name="ngModel" name="Name" [(ngModel)]="Group.Name" required />
+          <span class="text-danger" *ngIf="Name?.errors?.required &&  Name?.touched">{{'name_required'|translate}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <label>{{'description'|translate}} :</label>
+        </div>
+        <div class="col-sm-9">
+          <div class="form-group">
+            <input type="text" pInputText class="form-control" ref-Description="ngModel" name="Description" [(ngModel)]="Group.Description"
+              required />
+            <span class="text-danger" *ngIf="Description?.errors?.required && Description?.touched">{{'description_required'|translate}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!Group.IsAdminGroup">
+        <div class="col-sm-3">
+          <label>{{'is_default'|translate}} :</label>
+        </div>
+        <div class="col-sm-9">
+          <div class="form-group">
+
+            <input type="checkbox" pCheckBox ref-IsDefault="ngModel" name="IsDefault" [(ngModel)]="Group.IsDefault" />
+
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" [authGuard] actionType="add" *ngIf="!IsEdit" [disabled]="groupForm.invalid" pButton icon="fa-check" (click)="SaveGroup()" label="{{'save'|translate}}"></button>
+      <button type="button" *ngIf="IsEdit" [authGuard] actionType="edit"  [disabled]="groupForm.invalid" pButton icon="fa-check" (click)="SaveGroup()" label="{{'update'|translate}}"></button>
+    </div>
+  </p-footer>
+</p-dialog>

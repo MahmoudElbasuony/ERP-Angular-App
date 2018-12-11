@@ -1,0 +1,49 @@
+<section id="content" [ngClass]="{'contentAr':!langService.IsEnglish}">
+  <div class="page page-dashboard">
+    <div class="pageheader">
+      <div class="page-bar">
+        <ul class="page-breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-home"></i> ERPSystem</a>
+          </li>
+          <li>
+            <a href="#">{{'general_data_section'|translate}}</a>
+          </li>
+          <li>
+            <a href="#">{{'general_data_company_data'|translate}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- cards row -->
+
+
+
+    <div class="row">
+      <p-tabView>
+        <p-tabPanel header="{{'basic_data'|translate}}">
+          <basic-data></basic-data>
+        </p-tabPanel>
+        <p-tabPanel header="{{'contacts'|translate}}">
+          <contacts-data></contacts-data>
+        </p-tabPanel>
+        <p-tabPanel header="{{'legality_data'|translate}}">
+          <Legalities></Legalities>
+        </p-tabPanel>
+        <p-tabPanel header="{{'reports_settings'|translate}}">
+          <Reports-setting></Reports-setting>
+        </p-tabPanel>
+        <p-tabPanel header="{{'branches'|translate}}">
+          <Branches></Branches>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+
+  </div>
+
+
+
+
+
+</section>

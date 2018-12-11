@@ -1,0 +1,122 @@
+<section id="content" [ngClass]="{'contentAr':!langService.IsEnglish}">
+  <div class="page page-dashboard">
+    <div class="pageheader">
+      <div class="page-bar">
+        <ul class="page-breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-home"></i> ERPSystem</a>
+          </li>
+          <li>
+            <a href="#">{{'accounting_section'|translate}}</a>
+          </li>
+          <li>
+            <a href="#">{{'accounting_journals'|translate}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- cards row -->
+
+
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-sm-6">
+            <span class="h4">{{"entries" | translate}}</span>
+          </div>
+          <div class="col-sm-6">
+            <div class="pull-right">
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#entry_editor" (click)="CreateNewEntry()">
+                <span class="fa fa-plus"></span> {{"new_entry" | translate}} </button>
+              <button type="button" class="btn btn-info" (click)="Refresh()">
+                <span class="fa fa-refresh"></span> {{"refresh_entries" | translate}} </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-sm-12">
+
+            <p-dataTable [value]="Entries" [immutable]="false" [(selection)]="CurrentEntry" (onSelect)="OnEntrySelect($event.data)" selectionMode="single"
+              [style]="{'overflow': 'visible'}" [reorderableColumns]="true" columnResizeMode="fit" [resizableColumns]="true"
+              emptyMessage="No Entries found" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+
+
+              <p-column header="" [style]="{'width': '40px' ,'text-align':'center'}">
+                <ng-template let-entry="rowData" let-i="rowIndex" pTemplate="body">
+                  {{i+1}}
+                </ng-template>
+              </p-column>
+
+              <p-column header="{{'entry_date' | translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true">
+                <ng-template let-entry="rowData" pTemplate="body">
+                  <span>{{entry.Date | date:'dd/MM/yy'}}</span>
+                </ng-template>
+              </p-column>
+              <p-column field="DebitTotal" header="{{'entry_debit' | translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+              <p-column field="CreditTotal" header="{{'entry_credit' | translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+              <p-column field="Description" header="{{'entry_description' | translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+
+              <p-column header="{{'edit' | translate}}" [style]="{'text-align':'center'}">
+                <ng-template let-entry="rowData" pTemplate="body">
+
+                  <div class="row">
+                    <div class="btn-group btn-group-sm">
+                      <button type="button" style="width:7em" (click)="OnEditEntry(entry)" data-toggle="modal" data-target="#entry_editor" class="btn btn-primary">
+                        <i class="fa fa-edit"></i> {{'edit' | translate}}</button>
+                      <button type="button"  style="width:7em" (click)="OnViewEntry(entry)" data-toggle="modal" data-target="#entry_editor" class="btn btn-warning">
+                        <i class="fa fa-eye"></i> {{'view' | translate}}</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="btn-group btn-group-sm ">
+                      <button type="button"  style="width:7em" (click)="OnDeleteEntry(entry)" data-toggle="modal" data-target="#entry_editor" class="btn btn-danger">
+                        <i class="fa fa-remove"></i> {{'delete' | translate}}</button>
+
+                      <button type="button"  style="width:7em" (click)="OnPrintEntry(entry)" class="btn btn-default">
+                        <i class="fa fa-print"></i> {{'print' | translate}}</button>
+                    </div>
+                  </div>
+
+
+
+
+                </ng-template>
+              </p-column>
+
+
+            </p-dataTable>
+
+          </div>
+        </div>
+
+
+
+
+        <jouranl-details *ngIf="IsEdit || IsView" [IsView]="IsView" [IsEdit]="IsEdit" [EntryId]="CurrentEntry.Id" [Branches]="Branches"
+          [JournalData]="JournalData" [Accounts]="Accounts" [CostCenters]="CostCenters" [Currencies]="Currencies" (EntryEditorClose)="IsEdit=false;IsView=false;"
+          (OnUpdateDone)="OnUpdateDone($event)">
+
+        </jouranl-details>
+
+
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+
+
+</section>

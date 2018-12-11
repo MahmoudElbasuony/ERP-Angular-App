@@ -1,0 +1,118 @@
+<section id="content" [ngClass]="{'contentAr':!langService.IsEnglish}">
+  <div class="page page-dashboard">
+      <div class="pageheader">
+          <div class="page-bar">
+              <ul class="page-breadcrumb">
+                  <li>
+                      <a href="#"><i class="fa fa-home"></i> ERPSystem</a>
+                  </li>
+                  <li>
+                      <a href="#">{{'accounting_section'|translate}}</a>
+                  </li>
+                  <li>
+                    <a href="#">{{'accounting_cost_centers'|translate}}</a>
+                </li>
+              </ul>
+          </div>
+      </div>
+      <div class="panel panel-default">
+         
+            <div class="panel-body">
+                    <div class="row">
+      <div class="col-md-8">
+      <div class="row">
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                           Center Name
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" pInputText class="form-control" ref-CenterName="ngModel" name="CenterName" [(ngModel)]="newObject.CenterName" required/>
+                        <span class="text-danger" *ngIf="CenterName?.errors?.required && CenterName?.touched">Center Name Required</span>
+                    </div>
+                </div>
+    </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        Type
+                    </div>
+                    <div class="col-md-6">
+                        <p-dropdown [options]="TypesCenter" [(ngModel)]="newObject.Type"  name="Type"  ref-Type="ngModel" [style]="{'width':'330px'}" required></p-dropdown>
+                        <span class="text-danger" *ngIf="Type?.errors?.required && Type?.touched">Type Center Required</span>
+                    </div>
+                </div>
+            </div>
+    
+      <div class="row">
+
+            <div class="form-group">
+                <div class="col-md-2">
+                       Balance
+                </div>
+                <div class="col-md-6">
+                    <input type="text" pInputText class="form-control" ref-Balance="ngModel" name="Balance" [(ngModel)]="newObject.Balance" required/>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+
+            <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" 
+    (onNodeSelect)="nodeSelect($event)" (onNodeSelect)="nodeSelect($event)"></p-tree>
+
+    </div>
+</div>
+                  <!-- Table -->                
+                        <div class="row">
+                                <p-dataTable #dt [value]="list" exportFilename="CostCenters" selectionMode="single" [(selection)]="selectedCostCenter" 
+                                    [reorderableColumns]="true" columnResizeMode="fit" [resizableColumns]="true" [metaKeySelection]="false" emptyMessage="No Cost Center are found" [contextMenu]="cm" (onRowDblclick)="OnEditCostCenterTable($event)">
+                                    <p-header>
+                                        <div class="ui-helper-clearfix">
+                                            <button type="button" pButton icon="fa-table" iconPos="left" label="Export" (click)="dt.exportCSV()" style="float: left"></button>
+                                        </div>
+                                    </p-header>
+                                    <p-column header="" [style]="{'width': '40px' ,'text-align':'center'}">
+                                        <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+                                            {{i+1}}
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column field="Code" header="Code" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                                    <p-column field="CenterName" header="CenterName" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                                    <p-column field="Type" header="Type" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                                    <p-column field="Balance" header="Balance" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                                
+                                   
+                                    <p-column header="Edit" [style]="{'text-align':'center'}">
+                                            <ng-template let-CostCenter="rowData" pTemplate="body">
+                                              <div class="btn-group ">
+                                                <!-- <button type="button"  (click)="OnEditCostCenter(CostCenter)" class="btn btn-primary">
+                                                  <i class="fa fa-edit"></i> Edit</button> -->
+                                                <button type="button"  (click)="onDeleteCostCenter(CostCenter)" class="btn btn-danger">
+                                                  <i class="fa fa-remove"></i> Delete</button>
+                                              </div>
+                            
+                                            </ng-template>
+                                          </p-column>
+                            
+                        
+                                </p-dataTable>
+                                <p-contextMenu #cm [model]="items"></p-contextMenu>
+
+
+                              </div>
+                               
+                                     <button type="button" *ngIf="!editMode" pButton icon="fa-add" iconPos="left" label="Save" (click)="Save()" style="float: left;"class="ui-helper-clearfix"></button>
+                                     <button pButton type="button" *ngIf="editMode"  icon="fa-add" iconPos="left" label="Edit" (click)="update()" style="float:left;" class="ui-button-success"></button>
+                             
+
+
+                            </div>
+                        </div>
+
+  </div>
+
+</section>
+

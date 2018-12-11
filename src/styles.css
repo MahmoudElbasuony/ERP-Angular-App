@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+
+.contentAr {
+    left: 0 !important;
+    right: 19vw !important;
+    width: 80vw !important;
+}
+
+#content {
+    z-index: auto !important;
+}
+
+td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+#swal2-content {
+    font-size: medium;
+}

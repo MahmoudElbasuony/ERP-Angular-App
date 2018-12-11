@@ -1,0 +1,219 @@
+<section id="content" [ngClass]="{'contentAr':!langService.IsEnglish}">
+  <div class="page page-dashboard">
+    <div class="pageheader">
+      <div class="page-bar">
+        <ul class="page-breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-home"></i> ERPSystem</a>
+          </li>
+          <li>
+            <a href="#">{{'accounting_section'|translate}}</a>
+          </li>
+          <li>
+            <a href="#">{{'accounting_account_tree'|translate}}</a>
+
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel panel-default">
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+
+              <div class="form-group">
+                <div class="col-md-2">
+                  Account Code
+                </div>
+                <div class="col-md-4">
+                  <input type="text" pInputText class="form-control" ref-AccountCode="ngModel" name="AccountCode" [(ngModel)]="newObject.AccountCode"
+                    disabled required/>
+                  <span class="text-danger" *ngIf="AccountCode?.errors?.required && AccountCode?.touched">Account Code Required</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-2">
+                  Shortcut Code
+                </div>
+                <div class="col-md-4">
+                  <input type="text" pInputText class="form-control" ref-ShortcutCode="ngModel" name="ShortcutCode" [(ngModel)]="newObject.ShortcutCode"
+                    required/>
+
+                </div>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="form-group">
+                <div class="col-md-2">
+                  Account Name
+                </div>
+                <div class="col-md-4">
+                  <input type="text" pInputText class="form-control" ref-AccountName="ngModel" name="AccountName" [(ngModel)]="newObject.AccountName"
+                    required/>
+                  <span class="text-danger" *ngIf="AccountName?.errors?.required && AccountName?.touched">Account Name Required</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-md-2">
+                  Account Type
+                </div>
+                <div class="col-md-4">
+                  <p-dropdown [options]="AccountTypes" [(ngModel)]="newObject.AccountType" name="AccountType" ref-AccountType="ngModel" [style]="{'width':'208px'}"
+                    required></p-dropdown>
+                  <span class="text-danger" *ngIf="AccountType?.errors?.required && AccountType?.touched">Account Type Required</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="form-group">
+                <div class="col-md-2">
+                  Account Natural
+                </div>
+                <div class="col-md-4">
+                  <p-dropdown [options]="Accounts" [(ngModel)]="newObject.AccountNatural" name="AccountNatural" ref-AccountNatural="ngModel"
+                    [style]="{'width':'208px'}" required></p-dropdown>
+                  <span class="text-danger" *ngIf="AccountNatural?.errors?.required && AccountNatural?.touched">Account Natural Required</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-md-2">
+                  Parent Account
+                </div>
+                <div class="col-md-4">
+                  <p-dropdown [options]="Accounts" [(ngModel)]="newObject.ParentAccount" name="ParentAccount" ref-ParentAccount="ngModel" [style]="{'width':'208px'}"
+                    required></p-dropdown>
+                  <span class="text-danger" *ngIf="ParentAccount?.errors?.required && ParentAccount?.touched">Parent Account Required</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="form-group">
+                <div class="col-md-2">
+                  Account Balance
+                </div>
+                <div class="col-md-4">
+                  <input type="number" pInputText class="form-control" ref-AccountBalance="ngModel" name="AccountBalance" [(ngModel)]="newObject.AccountBalance"
+                    required/>
+
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <div class="col-md-2">
+                  Final Account
+                </div>
+                <div class="col-md-4">
+                  <p-dropdown [options]="Accounts" [(ngModel)]="newObject.FinalAccount" name="FinalAccount" ref-FinalAccount="ngModel" [style]="{'width':'208px'}"
+                    required></p-dropdown>
+                  <span class="text-danger" *ngIf="FinalAccount?.errors?.required && FinalAccount?.touched">Final Account Required</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="form-group">
+                <div class="col-md-2">
+                  Currency
+                </div>
+                <div class="col-md-4">
+                  <p-dropdown [options]="Currencies" [(ngModel)]="newObject.Currency" name="Currency" ref-Currency="ngModel" [style]="{'width':'208px'}"
+                    required></p-dropdown>
+                  <span class="text-danger" *ngIf="Currency?.errors?.required && Currency?.touched">Currency Required</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-md-2">
+                  Cost Center
+                </div>
+                <div class="col-md-4">
+                  <p-dropdown [options]="CostCenters" [(ngModel)]="newObject.CostCenter" name="CostCenter" ref-CostCenter="ngModel" [style]="{'width':'208px'}"
+                    required></p-dropdown>
+                  <span class="text-danger" *ngIf="CostCenter?.errors?.required && CostCenter?.touched">Cost Center Required</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group">
+                <div class="col-md-2">
+                  Has Cost Center ?
+                </div>
+                <div class="col-md-4">
+                  <!-- <input type="checkbox"  class="form-control" ref-AccountBalance="ngModel" name="AccountBalance" [(ngModel)]="newObject.AccountBalance" required/> -->
+                  <p-checkbox [(ngModel)]="newObject.HasCostCenter" binary="true"></p-checkbox>
+                </div>
+              </div>
+            </div>
+            <button type="button" *ngIf="!editMode" pButton icon="fa-add" iconPos="left" label="Save" (click)="Save()" style="float: left;"
+              class="ui-helper-clearfix"></button>
+            <button pButton type="button" *ngIf="editMode" icon="fa-add" iconPos="left" label="Edit" (click)="update()" style="float:left;"
+              class="ui-button-success"></button>
+
+          </div>
+          <div class="col-md-4">
+
+            <p-tree [value]="files" selectionMode="single" [(selection)]="selectedFile" (onNodeSelect)="nodeSelect($event)" (onNodeSelect)="nodeSelect($event)"></p-tree>
+
+          </div>
+        </div>
+        <!-- Table -->
+        <div class="row">
+          <p-dataTable #dt [value]="list" exportFilename="AccountTrees" selectionMode="single" [(selection)]="selectedAccountTree"
+            [reorderableColumns]="true" columnResizeMode="fit" [resizableColumns]="true" [metaKeySelection]="false" emptyMessage="No Account Tree  are found"
+            [contextMenu]="cm" (onRowDblclick)="OnEditAccountTreeTable($event)">
+            <p-header>
+              <div class="ui-helper-clearfix">
+                <button type="button" pButton icon="fa-table" iconPos="left" label="Export" (click)="dt.exportCSV()" style="float: left"></button>
+              </div>
+            </p-header>
+            <p-column header="" [style]="{'width': '40px' ,'text-align':'center'}">
+              <ng-template let-AccountTree="rowData" let-i="rowIndex" pTemplate="body">
+                {{i+1}}
+              </ng-template>
+            </p-column>
+            <p-column field="AccountCode" header="AccountCode" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+            <p-column field="AccountName" header="AccountName" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+            <p-column field="AccountBalance" header="AccountBalance" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+            <!-- <p-column field="OpiningBalance" header="OpiningBalance" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+                                          <p-column field="AccountLevel" header="AccountLevel" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column> -->
+            <p-column field="FinalAccount_Name" header="FinalAccount" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+            <p-column field="Currency_Name" header="Currency" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+
+
+
+            <p-column header="Edit" [style]="{'text-align':'center'}">
+              <ng-template let-AccountTree="rowData" pTemplate="body">
+                <div class="btn-group ">
+                  <button type="button" (click)="onDeleteAccountTree(AccountTree)" class="btn btn-danger">
+                    <i class="fa fa-remove"></i> Delete</button>
+                </div>
+
+              </ng-template>
+            </p-column>
+
+
+          </p-dataTable>
+          <p-contextMenu #cm [model]="items"></p-contextMenu>
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</section>

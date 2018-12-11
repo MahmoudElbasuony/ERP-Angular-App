@@ -1,0 +1,62 @@
+<section id="content" [ngClass]="{'contentAr':!langService.IsEnglish}">
+  <div class="page page-dashboard">
+    <div class="pageheader">
+      <div class="page-bar">
+        <ul class="page-breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-home"></i> ERPSystem</a>
+          </li>
+          <li>
+            <a href="#">{{'manage_user_section'|translate}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="card-container col-lg-12 col-sm-12 ">
+        <section class="tile">
+
+
+          <div class="tile-body p-0">
+
+            <p-dataTable #dt [value]="Users" exportFilename="Users" selectionMode="single" [(selection)]="selectedUser"
+              [reorderableColumns]="true" columnResizeMode="fit"  [metaKeySelection]="false" emptyMessage="No users are found">
+              <p-header>
+                <div class="ui-helper-clearfix">
+                  <button type="button" pButton icon="fa-table" iconPos="left" label="{{'export'|translate}}" (click)="dt.exportCSV()" style="float: left"></button>
+                </div>
+              </p-header>
+              <p-column header="" [style]="{'width': '40px' ,'text-align':'center'}">
+                <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+                  {{i+1}}
+                </ng-template>
+              </p-column>
+              <p-column field="FirstName" header="{{'first_name'|translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+              <p-column field="LastName" header="{{'last_name'|translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+              <p-column field="Email" header="{{'email'|translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+              <p-column field="Mobile" header="{{'mobile'|translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+              <p-column header="" [style]="{'text-align':'center'}">
+                <ng-template let-user="rowData" pTemplate="body">
+                    <button type="button" [authGuard] actionType="edit" [disabled]="user.IsSystemAdmin" (click)="onUserSelect(user)" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                </ng-template>
+              </p-column>
+              <p-footer>
+                <div class="ui-helper-clearfix" style="width:100%">
+                  <button type="button" (click)="showDialogToAdd()" [authGuard] actionType="add"  class="btn btn-primary pull-right">{{'add_user'|translate}}</button>
+                </div>
+              </p-footer>
+
+            </p-dataTable>
+
+
+          </div>
+          <!-- /tile body -->
+
+          <app-user-editor *ngIf="displayDialog" [Groups]="Groups" (OnAddOrUpdateUser)="OnUserAddOrUpdate($event)" (OnCloseDialog)="displayDialog=$event"  [User]="user"></app-user-editor>
+
+        </section>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,80 @@
+<div class="panel panel-default">
+  <div class="panel-heading">{{'basic_data' | translate}}</div>
+  <div class="panel-body">
+
+
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-2">
+          {{'name_ar' | translate}}
+        </div>
+        <div class="col-md-4">
+          <input type="text" pInputText class="form-control" ref-NameAr="ngModel" name="NameAr" [(ngModel)]="newObject.NameAr" required/>
+          <span class="text-danger" *ngIf="NameAr?.errors?.required && NameAr?.touched">{{'name_ar_required'|translate}}</span>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <div class="col-md-2">
+          {{'name_en'|translate}}
+        </div>
+        <div class="col-md-4">
+          <input type="text" pInputText class="form-control" ref-NameEn="ngModel" name="NameEn" [(ngModel)]="newObject.NameEn" required/>
+          <span class="text-danger" *ngIf="NameEn?.errors?.required && NameEn?.touched">{{'name_en_required'|translate}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-2">
+            {{'shortcut_name'|translate}}
+
+        </div>
+        <div class="col-md-4">
+          <input class="form-control" [(ngModel)]="newObject.ShortcutName" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-2">
+            {{'activity'|translate}}
+        </div>
+        <div class="col-md-4">
+          <input class="form-control" [(ngModel)]="newObject.Activity" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-2">
+            {{'zip_code'|translate}}
+        </div>
+        <div class="col-md-4">
+          <input class="form-control" [(ngModel)]="newObject.ZipCode" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-2">
+            {{'country'|translate}}
+
+        </div>
+        <div class="col-md-4">
+          <p-dropdown [options]="Countries" [(ngModel)]="newObject.CountryId" [filter]="true" [style]="{'width':'330px'}"></p-dropdown>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <button type="button"  [authGuard] actionType="add"  *ngIf="!editMode" pButton icon="fa-add" iconPos="left" label="Save" (click)="save()"
+        class="ui-helper-clearfix"></button>
+      <button pButton type="button"  [authGuard] actionType="edit" *ngIf="editMode" icon="fa-add" iconPos="left" label="Edit" (click)="update()" [style]="{'padding': '7px'}"
+        class="ui-button-success"></button>
+
+                           
+      </div>
+
+
+    </div>
+  </div>
+</div>

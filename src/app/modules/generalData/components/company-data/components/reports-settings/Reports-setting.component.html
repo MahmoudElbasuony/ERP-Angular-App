@@ -1,0 +1,79 @@
+<p-growl [value]="msgs"></p-growl>
+
+<div class="panel panel-default">
+  <div class="panel-heading">{{'reports_settings'|translate}}</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-2">
+          {{'logo'|translate}}
+        </div>
+        <div class="col-md-10">
+          <input type="hidden" [value]="reportSettings?.LogoFile?.Id" ref-LogoFile />
+          <p-fileUpload name="files" cancelLabel="{{'cancel'|translate}}" uploadLabel="{{'upload'|translate}}" chooseLabel="{{'chooseFile'|translate}}" [url]="Url" (onBeforeSend)="BeforeUpload($event,LogoFile)" (onUpload)="onUpload($event)" accept="image/*">
+          </p-fileUpload>
+          <div *ngIf="reportSettings?.LogoFile?.Url">
+            <button type="button"  (click)="onDeleteReportImage(LogoFile)" class="btn btn-primary remove-report">Remove</button>
+            <img class="report-img" alt="LogoFile" src="{{'http://localhost:21000'+reportSettings?.LogoFile?.Url}}" />
+          </div>
+
+        </div>
+      </div>
+      <hr/>
+      <div class="form-group">
+        <div class="col-md-2">
+          {{'manager_signature'|translate}}
+        </div>
+        <div class="col-md-10">
+          <input type="hidden" [value]="reportSettings?.ManagerSignFile?.Id" ref-ManagerSignFile />
+          <p-fileUpload name="files" [url]="Url" cancelLabel="{{'cancel'|translate}}" uploadLabel="{{'upload'|translate}}" chooseLabel="{{'chooseFile'|translate}}" (onBeforeSend)="BeforeUpload($event,ManagerSignFile)" (onUpload)="onUpload($event)"
+            accept="image/*">
+          </p-fileUpload>
+          <div *ngIf="reportSettings?.ManagerSignFile?.Url">
+            <button type="button"  (click)="onDeleteReportImage(ManagerSignFile)" class="btn btn-primary remove-report">Remove</button>
+            <img class="report-img" alt="ManagerSignFile" src="{{'http://localhost:21000'+reportSettings?.ManagerSignFile?.Url}}" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-2">
+          {{'header'|translate}}
+        </div>
+        <div class="col-md-10">
+          <input type="hidden" [value]="reportSettings?.HeaderFile?.Id" ref-HeaderFile />
+          <p-fileUpload name="files" [url]="Url" cancelLabel="{{'cancel'|translate}}" uploadLabel="{{'upload'|translate}}" chooseLabel="{{'chooseFile'|translate}}" (onBeforeSend)="BeforeUpload($event,HeaderFile)" (onUpload)="onUpload($event)" accept="image/*">
+          </p-fileUpload>
+          <div *ngIf="reportSettings?.HeaderFile?.Url" >
+            <button type="button" (click)="onDeleteReportImage(HeaderFile)" class="btn btn-primary remove-report">Remove</button>
+            <img class="report-img" alt="HeaderFile" src="{{'http://localhost:21000'+reportSettings?.HeaderFile?.Url}}" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        {{'footer'|translate}}
+      </div>
+      <div class="col-md-10">
+        <input type="hidden" [value]="reportSettings?.FooterFile?.Id" ref-FooterFile />
+        <p-fileUpload name="files" [url]="Url" cancelLabel="{{'cancel'|translate}}" uploadLabel="{{'upload'|translate}}" chooseLabel="{{'chooseFile'|translate}}" (onBeforeSend)="BeforeUpload($event,FooterFile)" (onUpload)="onUpload($event)" accept="image/*">
+        </p-fileUpload>
+        <div *ngIf="reportSettings?.FooterFile?.Url">
+          <button type="button"  (click)="onDeleteReportImage(FooterFile)" class="btn btn-primary remove-report">Remove</button>
+          <img class="report-img" alt="FooterFile" src="{{'http://localhost:21000'+reportSettings?.FooterFile?.Url}}" />
+        </div>
+      </div>
+
+
+    </div>
+    <p-confirmDialog   header="{{'delete_confirmation'|translate}}" message="{{'confirmation_message'|translate}}" rejectLabel="{{'no'|translate}}" acceptLabel="{{'yes'|translate}}" icon="fa fa-question-circle" width="425">
+
+    </p-confirmDialog>
+
+  </div>
+</div>
+

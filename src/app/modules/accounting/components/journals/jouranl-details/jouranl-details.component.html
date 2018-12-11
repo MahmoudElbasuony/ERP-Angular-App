@@ -1,0 +1,220 @@
+<div id="entry_editor" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" style="direction: ltr;">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="OnEntryEditorClose()">&times;</button>
+        <h4 class="modal-title">{{"entry" | translate}}</h4>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="row">
+          <div class="col-sm-12">
+
+
+            <form #EntryForm="ngForm">
+
+
+
+              <fieldset [disabled]="IsView" [ngClass]="{'disabled':IsView}">
+
+
+                <div class="row">
+                  <div class="col-sm-3">
+                    <label>{{"entry_date" | translate}} </label>
+                    <br/>
+                    <p-calendar [disabled]="IsView" dataType="string" [defaultDate]="CurrentEntry.Date" [(ngModel)]="CurrentEntry.Date" dateFormat="dd/mm/yy"
+                      (onSelect)="SetDate($event,false)" name="Date" [showIcon]="true" required="true">
+                    </p-calendar>
+                  </div>
+
+                  <div class="col-sm-3">
+
+                    <label>{{"entry_branch" | translate}} </label>
+                    <br/>
+                    <p-dropdown [disabled]="IsView" name="BranchID" [options]="BranchList" placeholder="Choose Branch" [(ngModel)]="CurrentEntry.BranchId"
+                      [filter]="true" [autoWidth]="false"></p-dropdown>
+
+                  </div>
+
+                  <div class="col-sm-3">
+
+                    <label>{{"entry_data" | translate}} </label>
+                    <br/>
+                    <p-dropdown [disabled]="IsView" name="JournalData" [options]="JournalData" placeholder="Choose Journal Data" [(ngModel)]="CurrentEntry.EntryDataId"
+                      [filter]="true" optionLabel="" [autoWidth]="false"></p-dropdown>
+
+                  </div>
+
+                  <div class="col-sm-3">
+                    <label>{{"entry_currency" | translate}} </label>
+                    <br/>
+                    <p-dropdown [disabled]="IsView" name="Currency" [options]="CurrencyList" placeholder="Choose Currency" [(ngModel)]="CurrentEntry.CurrencyId"
+                      [filter]="true" required="true" [autoWidth]="false"></p-dropdown>
+                  </div>
+
+                </div>
+
+                <div class="row">
+
+
+                  <!-- <div class="col-sm-3">
+
+                    <label>{{"entry_hdate" | translate}} </label>
+                    <br/>
+                    <input type="text" class="form-control" [value]="HijriDate"  readonly />
+
+                  </div> -->
+
+                  <div class="col-sm-5">
+
+                    <label>{{"entry_description" | translate}} </label>
+                    <br/>
+                    <input name="Description" ref-descritpion type="text" pInputText class="form-control" [(ngModel)]="CurrentEntry.Description"
+                    />
+
+                  </div>
+
+                  <div class="col-sm-4" *ngIf="descritpion?.value && descritpion?.value?.trim() && !IsView">
+                    <div class="checkbox">
+                      <label class="ApplyDescriptionToAllDetails">
+                        <input type="checkbox" (change)="ApplyDescription($event)" /> {{"apply_description" | translate}}
+                      </label>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" name="IsOpeningEntry" [(ngModel)]="CurrentEntry.IsOpeningHeader" /> {{"is_opening_entry" | translate}} </label>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+                <div class="row">
+                  <div class="col-sm-6">
+                    <button type="button" class="btn btn-warning " (click)="AddNewEntryDetail()">{{"add_new_entry_detail" | translate}}</button>
+                  </div>
+                </div>
+
+
+                <div class="row entry-detail-list">
+                  <div class="col-sm-12">
+
+                    <p-dataTable [immutable]="false" [editable]="true" [value]="CurrentEntry.EntryDetails" emptyMessage="No details found" [reorderableColumns]="true"
+                      columnResizeMode="fit" [resizableColumns]="true" [rows]="2" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+
+                      <p-column header="">
+                        <ng-template let-entryDetail="rowData" let-i="rowIndex" pTemplate="body">
+                          {{i+1}}
+                        </ng-template>
+                      </p-column>
+
+
+                      <p-column field="AccountCode" header="{{'entryd_account_code' | translate}}">
+                        <ng-template let-entryDetail="rowData" let-i="rowIndex" pTemplate="body">
+                          <input type="text" pInputText name="{{'AccountCode_'+i}}" (change)="OnChangeAccountCode(entryDetail)" class="form-control"
+                            [(ngModel)]="entryDetail.AccountCode" />
+                        </ng-template>
+                      </p-column>
+
+                      <p-column field="AccountID" header="{{'entryd_account' | translate}}" [style]=" {'overflow':'visible' }">
+                        <ng-template let-entryDetail="rowData" let-i="rowIndex" pTemplate="body">
+
+                          <p-dropdown [disabled]="IsView" name="{{'AccountID_'+i}}" (onChange)="OnChangeAccountId(entryDetail)" [style]="{'width':'100%'}"
+                            [options]="AccountList" placeholder="Choose Account" [autoWidth]="false" [(ngModel)]="entryDetail.AccountId"
+                            [filter]="true" [autoWidth]="false"></p-dropdown>
+
+                        </ng-template>
+                      </p-column>
+
+                      <p-column field="Description" header="{{'entry_description' | translate}}">
+                        <ng-template let-entryDetail="rowData" let-i="rowIndex" pTemplate="body">
+                          <input type="text" pInputText name="{{'Description_'+i}}" class="form-control" [(ngModel)]="entryDetail.Description" />
+                        </ng-template>
+                      </p-column>
+
+                      <p-column field="Debit" header="{{'entry_debit' | translate}}">
+                        <ng-template let-entryDetail="rowData" let-i="rowIndex" pTemplate="body">
+                          <input type="number" pInput (change)="OnChangeDebitOrCredit()" name="{{'Debit_'+i}}" [(ngModel)]="entryDetail.Debit" class="form-control"
+                          />
+                        </ng-template>
+                      </p-column>
+
+                      <p-column field="Credit" header="{{'entry_credit' | translate}}">
+                        <ng-template let-entryDetail="rowData" let-i="rowIndex" pTemplate="body">
+                          <input type="number" pInput (change)="OnChangeDebitOrCredit()" name="{{'Credit_'+i}}" [(ngModel)]="entryDetail.Credit" class="form-control"
+                          />
+                        </ng-template>
+                      </p-column>
+
+                      <p-column field="CostCenterID" header="{{'entryd_cost_center' | translate}}" [style]=" {'overflow':'visible' }">
+                        <ng-template let-entryDetail="rowData" let-i="rowIndex" pTemplate="body">
+
+                          <p-dropdown [disabled]="IsView" name="{{'CostCenterID_'+i}}" [autoWidth]="false" [style]="{'width':'100%'}" [options]="CostCenterList"
+                            placeholder="Choose Cost Center" [(ngModel)]="entryDetail.CostCenterId" [filter]="true" [autoWidth]="false"></p-dropdown>
+
+                        </ng-template>
+                      </p-column>
+
+
+                      <p-column header="">
+                        <ng-template let-entryDetail="rowData" let-i="rowIndex" pTemplate="body">
+                          <button type="button" class="btn btn-danger" (click)="DeleteEntryDetail(entryDetail)">{{'delete' | translate}}</button>
+                        </ng-template>
+
+                        <ng-template let-entryDetail="rowData" let-i="rowIndex" pTemplate="header">
+                          <button type="button" *ngIf="CurrentEntry.EntryDetails.length" class="btn btn-danger" (click)="DeleteAllEntryDetails()">{{'delete_all' | translate}}</button>
+                        </ng-template>
+                      </p-column>
+
+
+                    </p-dataTable>
+
+                  </div>
+                </div>
+
+              </fieldset>
+
+            </form>
+
+
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-xs-7">
+            <span>{{"entry_debit" | translate}} :
+              <b>{{CurrentEntry?.DebitTotal}}</b>
+            </span> |
+            <span>{{"entry_credit" | translate}} :
+              <b>{{CurrentEntry?.CreditTotal}}</b>
+            </span> |
+            <span>{{"entry_debit_credit_diff" | translate}} :
+              <b>{{CurrentEntry?.DebitTotal-CurrentEntry?.CreditTotal}}</b>
+            </span>
+          </div>
+          <div class="col-xs-5">
+            <button type="button" *ngIf="!(CurrentEntry?.Id) && !IsView" class="btn btn-success" (click)="SaveEntry()">{{"save" | translate}}</button>
+            <button type="button" *ngIf="CurrentEntry?.Id && !IsView" class="btn btn-success" (click)="SaveEntry()">{{"edit" | translate}}</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="OnEntryEditorClose()">{{"close" | translate}}</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

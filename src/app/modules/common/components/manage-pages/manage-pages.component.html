@@ -1,0 +1,67 @@
+<section id="content" [ngClass]="{'contentAr':!langService.IsEnglish}">
+  <div class="page page-dashboard">
+    <div class="pageheader">
+      <div class="page-bar">
+        <ul class="page-breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-home"></i> ERPSystem</a>
+          </li>
+          <li>
+            <a href="#">{{'manage_pages' | translate}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="card-container col-lg-12 col-sm-12 ">
+        <section class="tile">
+
+          <div class="tile-body p-0">
+
+
+            <p-dataTable [value]="Pages" [immutable]="false" selectionMode="single" [rows]="10" [(selection)]="selectedPage" [totalRecords]="1e10"
+              [paginator]="true" [reorderableColumns]="true" dataKey="Id">
+              <p-column header="" [style]="{'width': '40px' ,'text-align':'center'}">
+                <ng-template let-index="rowIndex" pTemplate="body">
+                  {{index+1}}
+                </ng-template>
+              </p-column>
+              <p-column field="NameAr" header="{{'name_ar' | translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+              <p-column field="NameEn" header="{{'name_en' | translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+              <!-- <p-column field="Path"  header="Path" [filter]="true" filterMatchMode="contains" [sortable]="true" ></p-column> -->
+
+              <p-column header="" [style]="{'text-align':'center'}">
+                <ng-template let-page="rowData" pTemplate="body">
+                  <div class="btn-group ">
+                    <button type="button" [authGuard] actionType="edit" (click)="OnEditPage(page)" class="btn btn-primary">
+                      <i class="fa fa-edit"></i>
+                    </button>
+                    <button type="button" [authGuard] actionType="delete" (click)="onDeletePage(page)" class="btn btn-danger">
+                      <i class="fa fa-remove"></i>
+                    </button>
+                  </div>
+
+                </ng-template>
+              </p-column>
+
+              <p-footer>
+                <div class="ui-helper-clearfix" style="width:100%">
+                  <!-- <button type="button" (click)="ShowAddPageDialog()"  class="btn btn-primary pull-right">{{'add_page'|translate}}</button> -->
+                </div>
+              </p-footer>
+
+            </p-dataTable>
+
+            <p-confirmDialog header="{{'delete_confirmation'|translate}}" message="{{'confirmation_message'|translate}}" rejectLabel="{{'no'|translate}}" acceptLabel="{{'yes'|translate}}" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+          </div>
+
+          <page-editor *ngIf="DisplayPageEditor" (OnAddOrUpdatePage)="OnPageAddOrUpdate($event)" (OnCloseDialog)="DisplayPageEditor=$event"
+            [Page]="selectedPage"></page-editor>
+
+        </section>
+      </div>
+    </div>
+  </div>
+</section>

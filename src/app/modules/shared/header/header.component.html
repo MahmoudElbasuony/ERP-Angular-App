@@ -1,0 +1,251 @@
+﻿<section id="header" class="scheme-default">
+  <header class="clearfix">
+
+    <!-- Branding -->
+    <div class="branding scheme-default" [ngClass]="{'pull-right': !langService.IsEnglish,'pull-left':langService.IsEnglish}">
+      <a class="brand" routerLink="/dashboard">
+        <span>
+          <strong>ERP</strong>SYSTEM</span>
+      </a>
+      <a role="button" tabindex="0" class="offcanvas-toggle visible-xs-inline">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+    <!-- Branding end -->
+
+
+
+    <!-- Left-side navigation -->
+    <ul class="nav-left list-unstyled list-inline" [ngClass]="{'pull-right': !langService.IsEnglish,'pull-left':langService.IsEnglish}">
+      <li class="sidebar-collapse divided-right">
+        <a role="button" tabindex="0" class="collapse-sidebar">
+          <i class="fa fa-outdent"></i>
+        </a>
+      </li>
+
+    </ul>
+    <!-- Left-side navigation end -->
+
+
+
+
+    <!-- Search -->
+    <div class="search" id="main-search">
+      <input type="text" class="form-control underline-input" placeholder="{{'searchbox_placeholder' | translate}}">
+    </div>
+    <!-- Search end -->
+
+
+
+
+    <!-- Right-side navigation -->
+    <ul class="nav-right list-inline user_top_navbar_controls" [ngClass]="{'pull-right':langService.IsEnglish,'pull-left':!langService.IsEnglish}">
+
+      <li class="dropdown messages">
+
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-envelope"></i>
+          <span class="badge bg-lightred">4</span>
+        </a>
+
+        <div class="dropdown-menu pull-right with-arrow panel panel-default animated littleFadeInDown" role="menu">
+
+          <div class="panel-heading">
+            You have
+            <strong>4</strong> messages
+          </div>
+
+          <ul class="list-group">
+
+            <li class="list-group-item">
+              <a role="button" tabindex="0" class="media">
+                <span class="pull-left media-object thumb thumb-sm">
+                  <img src="assets/images/ici-avatar.jpg" alt="" class="img-circle">
+                </span>
+                <div class="media-body">
+                  <span class="block">Imrich sent you a message</span>
+                  <small class="text-muted">12 minutes ago</small>
+                </div>
+              </a>
+            </li>
+
+            <li class="list-group-item">
+              <a role="button" tabindex="0" class="media">
+                <span class="pull-left media-object  thumb thumb-sm">
+                  <img src="assets/images/peter-avatar.jpg" alt="" class="img-circle">
+                </span>
+                <div class="media-body">
+                  <span class="block">Peter sent you a message</span>
+                  <small class="text-muted">46 minutes ago</small>
+                </div>
+              </a>
+            </li>
+
+            <li class="list-group-item">
+              <a role="button" tabindex="0" class="media">
+                <span class="pull-left media-object  thumb thumb-sm">
+                  <img src="assets/images/random-avatar1.jpg" alt="" class="img-circle">
+                </span>
+                <div class="media-body">
+                  <span class="block">Bill sent you a message</span>
+                  <small class="text-muted">1 hour ago</small>
+                </div>
+              </a>
+            </li>
+
+            <li class="list-group-item">
+              <a role="button" tabindex="0" class="media">
+                <span class="pull-left media-object  thumb thumb-sm">
+                  <img src="assets/images/random-avatar3.jpg" alt="" class="img-circle">
+                </span>
+                <div class="media-body">
+                  <span class="block">Ken sent you a message</span>
+                  <small class="text-muted">3 hours ago</small>
+                </div>
+              </a>
+            </li>
+
+          </ul>
+
+          <div class="panel-footer">
+            <a role="button" tabindex="0">Show all messages
+              <i class="pull-right fa fa-angle-right"></i>
+            </a>
+          </div>
+
+        </div>
+
+      </li>
+
+      <li class="dropdown notifications">
+
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-bell"></i>
+          <span class="badge bg-lightred">3</span>
+        </a>
+
+        <div class="dropdown-menu pull-right with-arrow panel panel-default animated littleFadeInLeft">
+
+          <div class="panel-heading">
+            You have
+            <strong>3</strong> notifications
+          </div>
+
+          <ul class="list-group">
+
+            <li class="list-group-item">
+              <a role="button" tabindex="0" class="media">
+                <span class="pull-left media-object media-icon bg-danger">
+                  <i class="fa fa-ban"></i>
+                </span>
+                <div class="media-body">
+                  <span class="block">User Imrich cancelled account</span>
+                  <small class="text-muted">6 minutes ago</small>
+                </div>
+              </a>
+            </li>
+
+            <li class="list-group-item">
+              <a role="button" tabindex="0" class="media">
+                <span class="pull-left media-object media-icon bg-primary">
+                  <i class="fa fa-bolt"></i>
+                </span>
+                <div class="media-body">
+                  <span class="block">New user registered</span>
+                  <small class="text-muted">12 minutes ago</small>
+                </div>
+              </a>
+            </li>
+
+            <li class="list-group-item">
+              <a role="button" tabindex="0" class="media">
+                <span class="pull-left media-object media-icon bg-greensea">
+                  <i class="fa fa-lock"></i>
+                </span>
+                <div class="media-body">
+                  <span class="block">User Robert locked account</span>
+                  <small class="text-muted">18 minutes ago</small>
+                </div>
+              </a>
+            </li>
+
+          </ul>
+
+          <div class="panel-footer">
+            <a role="button" tabindex="0">Show all notifications
+              <i class="fa fa-angle-right pull-right"></i>
+            </a>
+          </div>
+
+        </div>
+
+      </li>
+
+      <li (click)="langService.SwitchLanguage()">
+        <a>
+          <img class="lang-flag" src="{{'assets/images/'+ (langService.IsEnglish ?  'ar.png' : 'en.png')}}" />
+        </a>
+      </li>
+
+      <li class="dropdown nav-profile">
+
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">
+          <!-- <img src="assets/images/profile-photo.jpg" alt="" class="img-circle size-30x30"> -->
+          <i class="fa fa-user fa-2x"></i>
+          <span>{{User?.Name}}
+            <i class="fa fa-angle-down"></i>
+          </span>
+        </a>
+
+        <ul class="dropdown-menu animated littleFadeInRight" role="menu">
+
+          <li>
+            <a role="button" tabindex="0">
+                <ng-container *ngIf="langService.IsEnglish">
+                   <i class="fa fa-user"></i>  {{"profile"|translate}}
+                </ng-container>
+                <ng-container *ngIf="!langService.IsEnglish">
+                     {{"profile"|translate}}  <i class="fa fa-user"></i>
+                </ng-container>
+
+            </a>
+          </li>
+
+          <li>
+            <a role="button" tabindex="0">
+              <ng-container *ngIf="langService.IsEnglish">
+                  <i class="fa fa-cog"></i> {{"settings"|translate}}
+              </ng-container>
+              <ng-container *ngIf="!langService.IsEnglish">
+                  {{"settings"|translate}}  <i class="fa fa-cog"></i>
+              </ng-container>
+            </a>
+          </li>
+          <li class="divider"></li>
+
+          <li>
+            <a role="button" tabindex="0" (click)="Logout()">
+              <ng-container *ngIf="langService.IsEnglish">
+                <i class="fa fa-sign-out"></i> {{"logout"|translate}}
+              </ng-container>
+              <ng-container *ngIf="!langService.IsEnglish ">
+                {{"logout"|translate}}
+                <i class="fa fa-sign-out"></i>
+              </ng-container>
+
+            </a>
+          </li>
+
+        </ul>
+
+      </li>
+
+
+    </ul>
+    <!-- Right-side navigation end -->
+
+
+
+  </header>
+
+</section>

@@ -1,0 +1,149 @@
+<div class="panel panel-default">
+
+
+<div class="row">
+        <p-dataTable #dt [value]="list" exportFilename="branches" selectionMode="single" [(selection)]="selectedBranch" (onRowSelect)="onRowSelect($event)"
+            [reorderableColumns]="true" columnResizeMode="fit" [resizableColumns]="true" [metaKeySelection]="false" emptyMessage="{{'no_branches_found'|translate}}">
+            <p-header>
+                <div class="ui-helper-clearfix">
+                    <button type="button" pButton icon="fa-table" iconPos="left" label="{{'export'|translate}}" (click)="dt.exportCSV()" style="float: left"></button>
+                </div>
+            </p-header>
+            <p-column header="" [style]="{'width': '40px' ,'text-align':'center'}">
+                <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+                    {{i+1}}
+                </ng-template>
+            </p-column>
+            <p-column field="BranchName" header="{{'name_ar'|translate}}" [filter]="true" filterMatchMode="contains" [sortable]="true"></p-column>
+            <p-column>
+                    <ng-template let-i="rowIndex" let-data="rowData" pTemplate type="body">
+                        <button type="button" pButton icon="fa-edit" iconPos="left"   (click)="showDialogToEdit(data)" style="float: left"></button>
+
+                    </ng-template>
+            </p-column>
+            <p-footer>
+                <div class="ui-helper-clearfix" style="width:100%">
+                    <button type="button" pButton icon="fa-add" iconPos="left" [authGuard] actionType="add" label="{{'add_new_branch'|translate}}" (click)="showDialogToAdd()" style="float: left"></button>
+
+                </div>
+            </p-footer>
+
+        </p-dataTable>
+          <p-dialog [modal]="true" [(visible)]="showDialog">
+            <p-header>
+                {{'add_new_branch'|translate}}
+            </p-header>
+
+            <div>
+                <div class="row">
+                    <div class="col-md-2">
+                        {{'branch_name'|translate}}
+                    </div>
+                    <div class="col-md-4">
+
+                        <input type="text" pInputText class="form-control" ref-BranchName="ngModel" name="BranchName" [(ngModel)]="newObject.BranchName" required/>
+                        <span class="text-danger" *ngIf="BranchName?.errors?.required && BranchName?.touched">{{'branch_name_required'|translate}}</span>
+                    </div>
+                    <div class="col-md-1">
+                        {{'phone'|translate}}
+                    </div>
+                    <div class="col-md-4">
+
+                        <input type="text" pInputText class="form-control" ref-Phone="ngModel" name="Phone" [(ngModel)]="newObject.Phone" required/>
+                        <span class="text-danger" *ngIf="Phone?.errors?.required && Phone?.touched">{{'phone_required'|translate}}</span>
+                    </div>
+                    </div>
+
+
+            <div class="row">
+
+                    <div class="col-md-2">
+                        {{'fax'|translate}}
+                    </div>
+                    <div class="col-md-4">
+                        <input class="form-control" [(ngModel)]="newObject.Fax"/>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-2">
+                            {{'mobiles'|translate}}
+                             </div>
+                             <div class="col-md-8">
+                                     <table class="table table-bordered">
+                                             <thead>
+                                               <tr>
+                                                 <th>{{'mobile_numbers'|translate}}</th>
+                                               </tr>
+                                             </thead>
+                                             <tbody>
+                                               <tr *ngFor="let item of  MobilesNumberArray">
+                                                 <td>{{item}}</td>
+                                                 <td> <button type="button" pButton icon="fa-add" class="ui-button-danger"  label="{{'cancel'|translate}}" (click)="CancelMobile(item)" [style]="{'padding-left': '13px'}"></button></td>
+                                               </tr>
+                                             </tbody>
+                                           </table>
+                                 <input class="form-control" [(ngModel)]="MobileNumber"/>
+                                 <button type="button" pButton icon="fa-add" iconPos="left" label="{{'add_mobile_number'|translate}}" (click)="AddMobileNumber()" style="float: left"></button>
+                             </div>
+                         </div>
+
+                         <div class="row">
+                                <div class="col-md-2">
+                                    {{'currency'|translate}}
+                                </div>
+                                <div class="col-md-4">
+
+                                        <p-dropdown [options]="Currencies" [(ngModel)]="newObject.CurrencyId" name="CurrencyId" ref-CurrencyId="ngModel" [filter]="true"  [style]="{'width':'170px'}"></p-dropdown>
+                                        <span class="text-danger" *ngIf="CurrencyId?.errors?.required && CurrencyId?.touched">Currency is required</span>
+                                </div>
+                                <div class="col-md-1">
+                                    {{'user'|translate}}
+                                </div>
+                                <div class="col-md-4">
+                                        <p-dropdown [options]="Users" [(ngModel)]="newObject.UserId"  ref-UserId="ngModel" [filter]="true"  [style]="{'width':'170px'}"></p-dropdown>
+                                </div>
+
+                                </div>
+
+
+
+      <div class="row" >
+        <div class="col-sm-3">
+          <label>{{'close'|translate}}</label>
+        </div>
+        <div class="col-sm-9">
+          <div class="form-group">
+
+            <input type="checkbox" pCheckBox ref-Close="ngModel" name="IsDefault" [(ngModel)]="newObject.Close" />
+
+          </div>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col-sm-3">
+          <label> {{'close_date'|translate}}</label>
+        </div>
+        <div class="col-sm-9">
+          <div class="form-group">
+
+            <input type="checkbox" pCheckBox ref-CloseDate="ngModel" name="CloseDate" [(ngModel)]="newObject.CloseDate" />
+
+          </div>
+        </div>
+      </div>
+
+                </div>
+            <p-footer>
+                <div class="ui-helper-clearfix" style="width:100%">
+                        <button type="button" *ngIf="!editMode" [authGuard] actionType="add" pButton icon="fa-add" iconPos="left" label="{{'save'|translate}}" (click)="save()" style="float: left"></button>
+                        <button type="button"  *ngIf="editMode"  [authGuard] actionType="edit" pButton icon="fa-update" iconPos="left" label="Edit" (click)="update()" style="float: left"class="ui-button-success"></button>
+                        <button type="button" pButton icon="fa-add" iconPos="left" label="{{'cancel'|translate}}" (click)="cancelDialog()" style="float: left"></button>
+                </div>
+
+            </p-footer>
+          </p-dialog>
+
+        <p-confirmDialog  header="{{'delete_confirmation'|translate}}" message="{{'confirmation_message'|translate}}" rejectLabel="{{'no'|translate}}" acceptLabel="{{'yes'|translate}}" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+      </div>
+      </div>

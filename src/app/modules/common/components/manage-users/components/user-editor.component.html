@@ -1,0 +1,111 @@
+<p-dialog header="{{'user_details'|translate}}" [visible]="true" [responsive]="true"
+  (onHide)="Close()" showEffect="fade" [modal]="true" [width]="500">
+  <div class="ui-grid ui-grid-responsive ui-fluid">
+
+    <form ref-userForm="ngForm">
+      <div class="row">
+        <div class="col-sm-3">
+          <label>{{'first_name'|translate}}</label>
+        </div>
+        <div class="col-sm-9">
+          <div class="form-group">
+
+            <input type="text" pInputText class="form-control" ref-FirstName="ngModel" name="FirstName" [(ngModel)]="User.FirstName"
+              required />
+            <span class="text-danger" *ngIf="FirstName?.errors?.required  && FirstName?.touched">{{'first_name_required'|translate}}</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-sm-3">
+          <label>{{'last_name'|translate}}  </label>
+        </div>
+        <div class="col-sm-9">
+          <input type="text" pInputText class="form-control" ref-LastName="ngModel" name="LastName" [(ngModel)]="User.LastName" required
+          />
+          <span class="text-danger" *ngIf="LastName?.errors?.required  && LastName?.touched">{{'last_name_required'|translate}} </span>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-sm-3">
+          <label>{{'email'|translate}}</label>
+        </div>
+        <div class="col-sm-9">
+          <input type="text" pInputText class="form-control" ref-Email="ngModel" name="Email" [(ngModel)]="User.Email" required/>
+          <span class="text-danger" *ngIf="Email?.errors?.required && Email?.touched">{{'email_required'|translate}}</span>
+        </div>
+      </div>
+
+
+
+
+      <div class="row">
+        <div class="col-sm-3">
+          <label>{{'mobile'|translate}}</label>
+        </div>
+        <div class="col-sm-9">
+          <input type="text" pInputText class="form-control" ref-Mobile="ngModel" name="Mobile" [(ngModel)]="User.Mobile" required
+          />
+          <span class="text-danger" *ngIf="Mobile?.errors?.required && Mobile?.touched">{{'mobile_required'|translate}}</span>
+        </div>
+      </div>
+
+
+
+
+      <div class="row">
+        <div class="col-sm-3">
+          <label>{{'active'|translate}} </label>
+        </div>
+        <div class="col-sm-9">
+          <div class="form-group">
+            <input type="checkbox" name="IsDisabled" [(ngModel)]="User.IsDisabled" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <label>{{'groups'|translate}} </label>
+        </div>
+        <div class="col-sm-9">
+          <div class="form-group">
+            <p-multiSelect  [options]="Groups" dataKey="Id" [(ngModel)]="User.Roles" name="Roles" optionLabel="Name">
+            </p-multiSelect>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <label>{{'in_groups'|translate}} </label>
+        </div>
+        <div class="col-sm-9">
+          <div class="form-group">
+            <ng-container *ngFor="let group of User.Roles">
+              <b class="text-info">{{group.Name}}</b> ,
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+    </form>
+
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" [authGuard] actionType="add" *ngIf="!IsEdit" [disabled]="userForm.invalid" pButton icon="fa-check" (click)="SaveUser()" label="{{'save'|translate}}"></button>
+      <button type="button" [authGuard] actionType="edit" *ngIf="IsEdit" [disabled]="userForm.invalid" pButton icon="fa-check" (click)="SaveUser()" label="{{'edit'|translate}}"></button>
+    </div>
+  </p-footer>
+</p-dialog>

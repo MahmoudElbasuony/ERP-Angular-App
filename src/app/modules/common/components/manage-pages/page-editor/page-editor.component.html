@@ -1,0 +1,44 @@
+<p-dialog header="{{langService.IsEnglish? 'Page Details': 'تفاصيل الصفحه'}}" [visible]="true" [responsive]="true" (onHide)="Close()" showEffect="fade" [modal]="true"
+  [width]="500">
+  <div class="ui-grid ui-grid-responsive ui-fluid">
+
+    <form ref-pageForm="ngForm">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>{{'name_en' | translate}}</label>
+            <input type="text" pInputText class="form-control" ref-NameEn="ngModel" name="NameEn" [(ngModel)]="Page.NameEn" required
+            />
+            <span class="text-danger" *ngIf="NameEn?.errors?.required &&  NameEn?.touched">{{'name_en_required'|translate}}</span>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>{{'name_ar' | translate}}</label>
+            <input type="text" pInputText class="form-control" ref-NameAr="ngModel" name="NameAr" [(ngModel)]="Page.NameAr" required
+            />
+            <span class="text-danger" *ngIf="NameAr?.errors?.required && NameAr?.touched">{{'name_ar_required'|translate}} </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>{{'path'|translate}} : </label>
+            <b class="text-info">/{{Page.Path}}</b>
+            <input type="text" pInputText  ref-Path="ngModel" name="Path" [(ngModel)]="Page.Path"
+              required />
+            <span class="text-danger" *ngIf="Path?.errors?.required && Path?.touched">{{'path_required'|translate}}</span>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" [authGuard] actionType="add" *ngIf="!IsEdit" [disabled]="pageForm.invalid" pButton icon="fa-check" (click)="SavePage()" label="{{'save' | translate}}"></button>
+      <button type="button" [authGuard] actionType="edit" *ngIf="IsEdit" [disabled]="pageForm.invalid" pButton icon="fa-check" (click)="SavePage()" label="{{'edit' | translate}}"></button>
+    </div>
+  </p-footer>
+</p-dialog>

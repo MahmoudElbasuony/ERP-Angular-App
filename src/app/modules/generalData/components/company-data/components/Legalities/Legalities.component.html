@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+        <div class="panel-heading">{{'legality_data'|translate}}</div>
+        <div class="panel-body">
+                <div class="row">
+                        <div class="form-group">
+                    <div class="col-md-2">
+                        {{'trade_register'|translate}}
+                    </div>
+                    <div class="col-md-4">
+
+                        <input class="form-control" [(ngModel)]="newObject.TradeRegister"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        {{'company_number'|translate}}
+                    </div>
+                    <div class="col-md-4">
+                        <input class="form-control" [(ngModel)]="newObject.CompanyNumber"/>
+                    </div>
+                </div>
+                  </div>
+                  <div  class="row">
+                        <div class="form-group">
+                      <div class="col-md-2">
+                          {{'member_number'|translate}}
+                      </div>
+                      <div class="col-md-4">
+                          <input class="form-control" [(ngModel)]="newObject.MemberNumber"/>
+                      </div>
+                    </div>
+
+                  </div>
+
+                    <div  class="row">
+                        <div class="col-md-2">
+                           
+                            <button type="button"  [authGuard] actionType="add"  *ngIf="!editMode" pButton icon="fa-add" iconPos="left" label="Save" (click)="save()"
+                            class="ui-helper-clearfix"></button>
+                          <button pButton type="button"  [authGuard] actionType="edit" *ngIf="editMode" icon="fa-add" iconPos="left" label="Edit" (click)="update()" [style]="{'padding': '7px'}"
+                            class="ui-button-success"></button>
+                        </div>
+                      </div>
+
+        </div>
+      </div>
+
+
+

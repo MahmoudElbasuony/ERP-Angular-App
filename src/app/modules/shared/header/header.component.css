@@ -1,0 +1,16 @@
+﻿#header .search {
+  width:30%;
+}
+.dropdown.nav-profile .dropdown-menu {
+  min-width: 150px;
+}
+.dropdown-menu.panel .list-group > li {
+  padding-left:10px;
+}
+.lang-flag{
+  width: 3em;
+  height: 2em;
+}
+.user_top_navbar_controls{
+  margin: auto 3em;
+}
